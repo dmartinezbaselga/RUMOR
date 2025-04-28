@@ -1,5 +1,5 @@
 # RUMOR: Reinforcement learning for Understanding a Model of the Real world for navigation in dynamic environments
-
+This repo provides the code of the work for out paper RUMOR: Reinforcement learning for Understanding a Model of the Real world for navigation in dynamic environments, published in Robotics and Autonomous Systems (RAS) in 2025.
 # [Paper](https://www.sciencedirect.com/science/article/pii/S092188902500106X) || [Video](https://youtu.be/owF_Iw3BJPU)
 
 ## Abstract
