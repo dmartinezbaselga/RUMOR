@@ -24,3 +24,6 @@ author = {Diego Martinez-Baselga and Luis Riazuelo and Luis Montano},
 ## Bug Reports and Support
 For issues related to the work, please contact:
 - Diego Martinez-Baselga: `diegomartinez@unizar.es`
+
+## Acknowledgements
+This work was partially supported by MICIU/AEI/10.13039/501100011033 and ERDF/EU under grant PID2022-139615OB-I00 and grant PRE2020-094415, and Government of Aragón under grant DGA T45-23R.
