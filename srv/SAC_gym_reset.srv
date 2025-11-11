@@ -1,0 +1,3 @@
+bool finish_training
+---
+float32[] state

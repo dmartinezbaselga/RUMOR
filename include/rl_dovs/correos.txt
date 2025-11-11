@@ -1,0 +1,57 @@
+Voy a mirar en más detalle los instantes que dices, pero he visto al hacer reproduccion fotograma a fotograma en algunos, 
+que el obstáculo de velocidad aparece en el espacio de velocidades cuando dicho obstáculo se aleja de la trayectoria del robot, 
+igual que cuando se acerca. Es decir, cuando se aleja no debería aparecer el obstáculo en velocidades. Es posible que al hacer 
+el calculo de esas velocidades máximas, por intersección de trayectorias con la banda de colision, no se tenga en cuenta esto.
+No he visto si es general, pero en los casos que me he fijado sí pasa. también si los obstáculos está suficientemente lejos, 
+no debería aparecer, para dejar más velocidades libres. Habría que verificar estas 2 cosas y corregirlas, si es así como pasa. 
+
+O sea:
+    - obstáculos con distancia relativa mayor que d (habría que ver que valor es adecuado/seguro), no se reflejan en el espacio de 
+    velocidad. Esta condición es fácil de poner.
+    - verificar lo de las direcciones relativas. En porincipio no debería pasar, ya que los límites del obstáculo de velocidad se 
+    calculan para el punto de intersección entre donde estará el obstáculo cuando el robot llegue a la banda de colisión. Si va en 
+    dirección contraria, no debería haber tal punto de intersección, y por tanto no hay limite de velocidad (velocidades despejadas). 
+    Esta segunda condición puede resultar más complicada de encontrar, pero si te has hecho con el programa, supongo que la encontrarás 
+    rápido.
+
+Por ejemplo, en las iteraciones 10-11-12 de la figura adjunta (strategy, scenario1) las velocidades a derechas (negativas) están 
+bloqueadas, cuando aparentemente se ve en la fig del workspace que deberían estar libres, lo que permitiría esquivar el obstáculo. 
+No parece que debiera haber intersección con la banda de colisión en es instante, aunque está muy cerca.
+
+..Y efectivamente como dices en las iteraciones alrededor de la 160 (adjunta) no coge la velocidad del la derecha del rombo, sino 
+la de abajo con lo cual no se alinea bien con el objetivo.
+
+Puede haber dos fallos:
+    - que el obstáculo de velocidad que aparece en velocidades negativas a la derecha del robot no debería estar (por lo que he 
+    dicho en el email anterior)
+    - que no se elige la estrategia adecuada, o que esta no está bien implementada, porque no elige velocidades libres hacia el 
+    objetivo sino hacia velocidades lineales menores, lo que en esta caso no está bien.
+    
+Podrías también representar la estrategia que está utilizando en cada iteración, para verificar si es la correcta, y si lo es 
+revisar por qué hace lo que no tiene que hacer.
+
+Perdona la secuencia de emails, pero los estoy viendo sobre la marcha. En la figura, scenario 2 iteracion 40-44, veo 2 cosas raras:
+    - Otra vez lo mismo de antes, solo los obstáculos 3 y 7 deberían interferir, pero en la situación del robot parace que deberían 
+    quedar libres velocidades que lleven directamente al objetivo, y sin embargo está bloqueadas, a investigar.
+    - En la situación de velocidades representada, la estrategia correspondiente debería "bajar" la velo lineal hasta salir del 
+    DOV y coger velocidades libres. No lo hace, aparantemente igual que en el ejemplo del anterior email. Puede haber un poroblema 
+    de implementación en esa estrategia.
+
+En la iteración 37, el único obstáculo que interfiere es el 3 y de lejos, mientras que aparacen un montón de velocidades limitadas. 
+Con esto vuelvo a pensar que hay algún error en el cálculo de la intersección con la banda de colisión, cuando los obstáculos van 
+en dirección de no colisión.
+Una visualización explícita en cada iteración de la estrategia que elige y la velocidad (del rombo) que a su vez elige en la 
+estrategia, ayudará a detectar los fallos.
+
+En random3-strategy iter 93 se ve muy claro, ningún obstáculo interfiere, todos quedan detrás, pero las velocidades están 
+bloqueadas. No puede ser otra cosa que se calculan intersecciones con obstáculos en direcciones de alejamiento, incluso que 
+están detrás.
+
+Hay que revisar esto de las intersecciones. Si la banda de colision está detrás del objeto (interseccion del eje x del robot 
+con banda de colision es x<0 en la ref. del robot) no se calcula el DOV para ese objeto. Si y=mx+b es la ecuación de la recta, 
+y=0--> x=-b/m<0 está detrás.
+
+Si el objeto se mueve en dirección de alejamiento, el punto P1j  tendrá una y superior en valor absoluto que P2j, y entonces no 
+hay que calcularlos y no hay DOV. En caso contrario abs(y_P1)j<abs(y_P2j)  es que van al encuentro y por tantr si que hay que 
+calcularlo. Creo que son unos test sencillos para eliminar DOVS que no interfieren. Verificalo, si ves que no cubre todo, piensa 
+en alguna otra restricción.

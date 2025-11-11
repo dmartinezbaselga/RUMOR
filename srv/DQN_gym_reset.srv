@@ -1,0 +1,5 @@
+bool finish_training
+---
+float32[] state
+int32[] goal_actions
+float32[] reward_data

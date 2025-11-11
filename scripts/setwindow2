@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# gedit --new-window &
+
+# # Process ID of the process we just launched
+# PID=$!
+
+# sleep 2
+# echo hola
+
+# # Window ID of the process...pray that there's     
+# # only one window! Otherwise this might break.
+# # We also need to wait for the process to spawn
+# # a window.
+# while [ "$WID" == "" ]; do
+#         WID=$(wmctrl -lp | grep $PID | cut "-d " -f1)
+# done
+# echo hola
+# # Set the size and location of the window
+# # See man wmctrl for more info
+# wmctrl -i -r $WID -e 0,50,50,250,250
+# echo hola
+
+# roslaunch rl_dovs rviz.launch &
+
+# # Process ID of the process we just launched
+# PID=$!
+
+# sleep 2
+
+# # Window ID of the process...pray that there's     
+# # only one window! Otherwise this might break.
+# # We also need to wait for the process to spawn
+# # a window.
+# while [ "$WID" == "" ]; do
+#         WID=$(wmctrl -lp | grep $PID | cut "-d " -f1)
+# done
+# # Set the size and location of the window
+# # See man wmctrl for more info
+# wmctrl -i -r $WID -e 0,50,250,250,500
+
+# gedit --new-window &
+
+# # Process ID of the process we just launched
+# PID=$!
+
+# sleep 1
+
+# # Window ID of the process...pray that there's     
+# # only one window! Otherwise this might break.
+# # We also need to wait for the process to spawn
+# # a window.
+# while [ "$WID" == "" ]; do
+#         WID=$(wmctrl -lp | grep $PID | cut "-d " -f1)
+# done
+# # Set the size and location of the window
+# # See man wmctrl for more info
+# wmctrl -i -r $WID -e 0,50,50,250,250
+
+gedit --new-window &
+sleep 2
+
+xdotool search --onlyvisible --name ros windowmove 50 50 windowsize 750 500
+xdotool search --onlyvisible --name rviz windowmove 950 50 windowsize 1150 1200
+xdotool search --onlyvisible --name dislin windowmove 50 500 windowsize 750 550

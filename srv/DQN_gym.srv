@@ -1,0 +1,7 @@
+int8 action
+---
+float32[] state
+int32[] goal_actions
+float64 reward
+bool done
+float32[] reward_data

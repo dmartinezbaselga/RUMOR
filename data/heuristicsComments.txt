@@ -1,0 +1,12 @@
+1.0	# w_max_steering
+1.5184	# ang_left
+1.6232	# ang_right
+0.7	# wz2 - Para alinear o frenar
+0.75	# walign
+0.5	# valley
+0.1	# goal_valley - Margen para seguir al goal separado del DOVS (no se usa actualmente)
+0.5	# vorientacion - Límite velocidad lineal seleccionable si la velocidad angular es muy alta
+0.5	# worientacion - Límite velocidad angular seleccionable si la velocidad lineal es muy alta
+
+
+

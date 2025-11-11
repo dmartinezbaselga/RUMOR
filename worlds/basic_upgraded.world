@@ -1,0 +1,180 @@
+define topurg ranger
+(
+  sensor( 			
+    range [ 0.0  30.0 ]
+    fov 180
+    samples 360
+  )
+  # generic model properties
+  color "black"
+  size [ 0.050 0.050 0.050 ]
+)
+
+define erratic position
+(
+  size [0.400 0.400 0.5]
+  block
+  ( 
+    points 16
+    point[0]  [ 0.225 0.000 ]
+    point[1]  [ 0.208 0.086 ]
+    point[2]  [ 0.159 0.159 ]
+    point[3]  [ 0.086 0.208 ]
+    point[4]  [ 0.000 0.225 ]
+    point[5]  [ -0.086 0.208 ]
+    point[6]  [ -0.159 0.159 ]
+    point[7]  [ -0.208 0.086 ]
+    point[8]  [ -0.225 0.000 ]
+    point[9]  [ -0.208 -0.086 ]
+    point[10] [ -0.159 -0.159 ]
+    point[11] [ -0.086 -0.208 ]
+    point[12] [ -0.000 -0.225 ]
+    point[13] [ 0.086 -0.208 ]
+    point[14] [ 0.159 -0.159 ]
+    point[15] [ 0.208 -0.086 ]
+    z [0 1]
+  )
+  origin [0.000 0.000 0.000 0.000]
+  ranger_return 1
+  gui_nose 1
+  drive "diff"
+  topurg(pose [ 0.00 0.000 -0.400 0.000 ])
+  name "agent"
+)
+
+define erratic2 position
+(
+  size [0.400 0.400 0.5]
+  block
+  ( 
+    points 16
+    point[0]  [ 0.225 0.000 ]
+    point[1]  [ 0.208 0.086 ]
+    point[2]  [ 0.159 0.159 ]
+    point[3]  [ 0.086 0.208 ]
+    point[4]  [ 0.000 0.225 ]
+    point[5]  [ -0.086 0.208 ]
+    point[6]  [ -0.159 0.159 ]
+    point[7]  [ -0.208 0.086 ]
+    point[8]  [ -0.225 0.000 ]
+    point[9]  [ -0.208 -0.086 ]
+    point[10] [ -0.159 -0.159 ]
+    point[11] [ -0.086 -0.208 ]
+    point[12] [ -0.000 -0.225 ]
+    point[13] [ 0.086 -0.208 ]
+    point[14] [ 0.159 -0.159 ]
+    point[15] [ 0.208 -0.086 ]
+    z [0 1]
+  )
+  origin [0.000 0.000 0.000 0.000]
+  ranger_return 1
+  gui_nose 1
+  drive "diff"
+  topurg(pose [ 0.00 0.000 -0.400 0.000 ])
+  topurg(pose [ 0.00 0.000 -0.400 180.000 ])
+  name "agent"
+)
+
+define erratic_passive position
+(
+  size [0.400 0.400 0.5]
+  block
+  ( 
+    points 16
+    point[0]  [ 0.225 0.000 ]
+    point[1]  [ 0.208 0.086 ]
+    point[2]  [ 0.159 0.159 ]
+    point[3]  [ 0.086 0.208 ]
+    point[4]  [ 0.000 0.225 ]
+    point[5]  [ -0.086 0.208 ]
+    point[6]  [ -0.159 0.159 ]
+    point[7]  [ -0.208 0.086 ]
+    point[8]  [ -0.225 0.000 ]
+    point[9]  [ -0.208 -0.086 ]
+    point[10] [ -0.159 -0.159 ]
+    point[11] [ -0.086 -0.208 ]
+    point[12] [ -0.000 -0.225 ]
+    point[13] [ 0.086 -0.208 ]
+    point[14] [ 0.159 -0.159 ]
+    point[15] [ 0.208 -0.086 ]
+    z [0 1]
+  )
+  origin [0.000 0.000 0.000 0.000]
+  ranger_return 1
+  gui_nose 1
+  drive "diff"
+  name "agent"
+)
+
+define target position
+(
+  size [0.250 0.250 0.250]
+  gui_nose 0
+  ranger_return -1
+  obstacle_return 0
+)
+
+define floorplan model
+(
+  # sombre, sensible, artistic
+  color "gray30"
+
+  # most maps will need a bounding box
+  boundary 1
+
+  gui_nose 0
+  gui_grid 0
+
+  gui_outline 0
+  gripper_return 0
+  fiducial_return 0
+  laser_return 0
+)
+
+# set the resolution of the underlying raytrace model in meters
+
+resolution 0.01
+
+interval_sim 1  # simulation timestep in milliseconds
+
+
+window
+( 
+  #size [ 800 499 ] 
+  rotate [ 0.000 0.000 ]
+  scale 21.205 
+  show_data 1 
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "simple"
+  bitmap "simple.pgm"
+  size [20.0 20.0 1.500]
+  pose [ 0 0  0.000 0.000 ]
+)
+
+# throw in a robot
+erratic( pose [ -5.47305 7.11738 0.000 139.957 ] name "robot_0" color "red")
+erratic_passive( pose [ 6.15976 1.00883 0.000 -79.3776 ] name "robot_1" color "black")
+erratic_passive( pose [ -0.482039 -4.7397 0.000 83.6412 ] name "robot_2" color "black")
+erratic_passive( pose [ -3.75995 -6.34575 0.000 -54.8624 ] name "robot_3" color "black")
+erratic_passive( pose [ 2.34898 -1.41986 0.000 162.129 ] name "robot_4" color "black")
+erratic_passive( pose [ -3.39851 -3.62482 0.000 120.797 ] name "robot_5" color "black")
+erratic_passive( pose [ 6.40129 -4.65172 0.000 -10.3021 ] name "robot_6" color "black")
+erratic_passive( pose [ 5.39699 5.48159 0.000 128.469 ] name "robot_7" color "black")
+erratic_passive( pose [ 7.14378 -3.36829 0.000 157.527 ] name "robot_8" color "black")
+erratic_passive( pose [ 7.19022 2.31679 0.000 -124.542 ] name "robot_9" color "black")
+erratic_passive( pose [ 4.6132 3.0826 0.000 -53.6131 ] name "robot_10" color "black")
+erratic_passive( pose [ -7.83142 -5.54204 0.000 -52.6419 ] name "robot_11" color "black")
+erratic_passive( pose [ 6.88869 -4.16967 0.000 -59.2984 ] name "robot_12" color "black")
+erratic_passive( pose [ -4.54095 1.32503 0.000 93.8563 ] name "robot_13" color "black")
+erratic_passive( pose [ 3.00138 7.62374 0.000 61.3928 ] name "robot_14" color "black")
+erratic_passive( pose [ 2.4321 1.15571 0.000 4.21598 ] name "robot_15" color "black")
+erratic_passive( pose [ -7.3669 -3.93204 0.000 132.988 ] name "robot_16" color "black")
+erratic_passive( pose [ -3.90486 4.44769 0.000 107.016 ] name "robot_17" color "black")
+erratic_passive( pose [ -1.13555 -2.65218 0.000 49.6212 ] name "robot_18" color "black")
+erratic_passive( pose [ -8.99681 0.128861 0.000 -101.591 ] name "robot_19" color "black")
+erratic_passive( pose [ 2.4939 5.76863 0.000 -126.011 ] name "robot_20" color "black")
+target( pose [ 8.976106 -5.899443 0.000 0.000 ] name "target_0" color "red")

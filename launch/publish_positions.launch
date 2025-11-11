@@ -1,0 +1,8 @@
+<?xml version="1.0"?> 
+<launch>
+<param name="/use_sim_time" value="true"/>
+	<node name="pos_pub" pkg="rl_dovs" type="publish_positions" output="screen">
+<param name = "nRobots" value = "6" />
+<param name = "actives" value = "0 " />
+</node>
+</launch>

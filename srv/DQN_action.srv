@@ -1,0 +1,4 @@
+float32[] state
+int32[] goal_actions
+---
+int8 action

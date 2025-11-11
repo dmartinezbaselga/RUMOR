@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/diego/Documentos/rl_dovs_ws/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/diego/Documentos/rl_dovs_ws/src/acme/include/**",
+        "/home/diego/Documentos/rl_dovs_ws/src/keras-rl2/include/**",
+        "/home/diego/Documentos/rl_dovs_ws/src/rl_dovs/include/**",
+        "/home/diego/Documentos/rl_dovs_ws/src/stable_baselines3/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

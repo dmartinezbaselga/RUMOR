@@ -1,0 +1,6 @@
+bool finish_training
+---
+float64[] robot_state
+float32[] lidar_measurements
+FloatArray[] observable_state
+float64 reward

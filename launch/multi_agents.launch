@@ -1,0 +1,127 @@
+<?xml version="1.0"?> 
+<launch>
+<param name="/use_sim_time" value="true"/>
+<group ns="robot_0">
+<node name="robot_0" pkg="rl_dovs" type="active_agent_dqn" output="screen" clear_params="true">
+<param name = "v_x" value = "0.290409" />
+<param name = "v_th" value = "0.842994" />
+<param name = "track_metric" value = "false" />
+<param name = "collaborative" value = "false" />
+<param name = "record_steps" value = "false" />
+<param name = "id" value = "0" />
+<param name = "x" value = "-1.38829" />
+<param name = "y" value = "-0.301566" />
+<param name = "theta" value = "-2.91216" />
+<param name = "x_goal" value = "2.99303" />
+<param name = "y_goal" value = "-0.422241" />
+<param name = "av" value = "0.3" />
+<param name = "aw" value = "1.34571" />
+<param name = "learning" value = "false" />
+<param name = "use_crowdnav_actions" value = "true" />
+<param name = "orca_agents" value = "true" />
+<param name = "global_scenario" value = "false" />
+<param name = "lidar_observation" value = "false" />
+<param name = "sac" value = "true" />
+<param name = "visualize" value = "true" />
+<param name = "no_training" value = "true" />
+<param name = "deep_q_learning" value = "true" />
+<param name = "curricular_obstacles" value = "false" />
+<param name = "curricular_goal" value = "false" />
+<param name = "static_obstacles" value = "false" />
+<param name = "random_n_obstacles" value = "false" />
+<param name = "lidar_state" value = "false" />
+<param name = "crowdnav" value = "false" />
+<param name = "crowdnav_policy" value = "" />
+<param name = "rllib" value = "false" />
+<param name = "rllib_policy" value = "" />
+<param name = "readQTable" value = "false" />
+<param name = "two_lasers" value = "false" />
+<param name = "test" value = "true" />
+<param name = "cadrl" value = "false" />
+<param name = "alpha" value = "0.01" />
+<param name = "gamma" value = "0.99" />
+<param name = "epsilon" value = "0.1" />
+<param name = "epsilon_discount" value = "0.0025" />
+<param name = "fileQTable" value = "sac_dovs_crowdnav_final" />
+<param name = "q_table_name" value = "sac_dovs_crowdnav_final" />
+<param name = "nActives" value = "1" />
+<param name = "nPasives" value = "5" />
+<param name = "n_episodes" value = "500" />
+<param name = "random_scenario" value = "true" />
+</node>
+<node name="amcl" pkg="amcl" type="amcl" output="screen">
+<remap from="scan" to="ranger_0/base_scan"/>
+<param name="use_map_topic"             value="true"/>
+<param name="odom_frame_id" value="/robot_0/odom" />
+<param name="base_frame_id" value="/robot_0/base_link" />
+<param name="global_frame_id" value="/map" />
+<remap from="static_map" to="/static_map"/>
+<remap from="map" to="/map"/>
+<!-- Initial position -->
+<param name="initial_pose_x" value="-1.38829" />
+<param name="initial_pose_y" value="-0.301566" />
+<param name="initial_pose_a" value="-2.91216" />
+<!-- amcl specific -->
+<param name="odom_model_type"           value="diff"/>
+<param name="gui_publish_rate"          value="10.0"/>
+<param name="laser_max_beams"           value="60"/>
+<param name="laser_max_range"           value="12.0"/>
+<param name="min_particles"             value="500"/>
+<param name="max_particles"             value="2000"/>
+<param name="kld_err"                   value="0.05"/>
+<param name="kld_z"                     value="0.99"/>
+<param name="odom_alpha1"               value="0.2"/>
+<param name="odom_alpha2"               value="0.2"/>
+<!-- translation std dev, m -->
+<param name="odom_alpha3"               value="0.2"/>
+<param name="odom_alpha4"               value="0.2"/>
+<param name="odom_alpha5"               value="0.1"/>
+<param name="laser_z_hit"               value="0.5"/>
+<param name="laser_z_short"             value="0.05"/>
+<param name="laser_z_max"               value="0.05"/>
+<param name="laser_z_rand"              value="0.5"/>
+<param name="laser_sigma_hit"           value="0.2"/>
+<param name="laser_lambda_short"        value="0.1"/>
+<param name="laser_model_type"          value="likelihood_field"/>
+<param name="laser_likelihood_max_dist" value="2.0"/>
+<param name="update_min_d"              value="0.1"/>
+<param name="update_min_a"              value="0.2"/>
+<param name="resample_interval"         value="1"/>
+<param name="transform_tolerance"       value="1.0"/>
+<param name="recovery_alpha_slow"       value="0.0001"/>
+<param name="recovery_alpha_fast"       value="0.1"/>
+</node>
+<node name="obstacle_extractor" pkg="obstacle_detector" type="obstacle_extractor_node">
+<remap from="scan" to="ranger_0/base_scan"/>
+<param name="active"               value="true"/>
+<param name="use_scan"             value="true"/>
+<param name="use_pcl"              value="false"/>
+<param name="use_split_and_merge"    value="false"/>
+<param name="circles_from_visibles"  value="true"/>
+<param name="discard_converted_segments" value="true"/>
+<param name="transform_coordinates"  value="true"/>
+<param name="min_group_points"     value="5"/>
+<param name="max_group_distance"   value="0.1"/>
+<param name="distance_proportion"  value="0.00628"/>
+<param name="max_split_distance"   value="0.2"/>
+<param name="max_merge_separation" value="0.2"/>
+<param name="max_merge_spread"     value="0.2"/>
+<param name="max_circle_radius"    value="0.6"/>
+<param name="radius_enlargement"   value="0.3"/>
+<param name="frame_id"             value="/map"/>
+</node>
+<node name="obstacle_tracker" pkg="obstacle_detector" type="obstacle_tracker_node" output="screen">
+<param name="active"                  value="true"/>
+<param name="loop_rate"               value="25.0"/>
+<param name="tracking_duration"       value="2.0"/>
+<param name="min_correspondence_cost" value="0.6"/>
+<param name="std_correspondence_dev"  value="0.15"/>
+<param name="process_variance"        value="0.1"/>
+<param name="process_rate_variance"   value="0.1"/>
+<param name="measurement_variance"    value="1.0"/>
+<param name="frame_id"                value="/map"/>
+<param name="algorithm"               value="1"/>
+<remap from="tracked_obstacles" to="obstacles"/>
+</node>
+</group>
+</launch>

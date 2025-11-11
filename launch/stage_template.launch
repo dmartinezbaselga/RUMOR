@@ -1,0 +1,12 @@
+<?xml version="1.0"?> 
+<launch>
+
+<param name="/use_sim_time" value="true"/>
+
+	<!-- <node name="stage_ros" pkg="stage_ros" type="stageros" args="$(find rl_dovs)/worlds/basic.world" output="screen" required="true"> -->
+	<!-- <node name="stage_ros_dovs" pkg="stage_ros_dovs" type="stageros" args="$(find rl_dovs)/worlds/basic.world" output="screen" required="true" launch-prefix="gdb -ex run -/-args"> -->
+	<!-- <node name="stage_ros_dovs" pkg="stage_ros_dovs" type="stageros" args="$(find rl_dovs)/worlds/basic.world" output="screen" required="true" launch-prefix="valgrind"> -->
+	<node name="stage_ros_dovs" pkg="stage_ros_dovs" type="stageros" args="$(find rl_dovs)/worlds/basic.world" output="screen" required="true">
+		<remap from="base_scan" to="scan" />
+		<param name="step_by_step"               value="true"/>
+		

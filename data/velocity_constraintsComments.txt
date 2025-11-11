@@ -1,0 +1,8 @@
+0	# v-min out vs
+1.5	# v-max out vs
+-1	# w-min out vs
+1	# w-max out vs
+1.5	# v-max robot in vs [v-min = 0]
+1	# w-max robot in vs
+-1	# w-min	robot in vs
+12	# num steps to max vel

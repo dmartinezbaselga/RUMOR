@@ -1,0 +1,8 @@
+float64 v_x
+float64 v_y
+float64 v_th
+---
+float64[] robot_state
+FloatArray[] observable_state
+float64 reward
+bool done

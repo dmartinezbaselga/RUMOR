@@ -1,0 +1,6 @@
+float64 x1
+float64 x2
+---
+float32[] state
+float64 reward
+bool done
